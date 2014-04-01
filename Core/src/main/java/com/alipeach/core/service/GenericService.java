@@ -18,7 +18,9 @@ public interface GenericService<T, PK extends Serializable> {
 
     void delete (List<T> list);
 
-    List<T> find (T t);
+    List<T> find(T t, int offset, int fetchSize);
+
+    List<T> findAll (T t);
 
     List<T> loadAll();
 }

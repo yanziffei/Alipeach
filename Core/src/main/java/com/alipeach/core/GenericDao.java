@@ -18,8 +18,9 @@ public interface GenericDao<T, PK extends Serializable> {
 
     void delete (List<T> list);
 
-    List<T> find (T t);
+    List<T> findAll (T t);
 
     List<T> loadAll();
 
+    List<T> find (T t, int offset, int fetchSize);
 }

@@ -1,6 +1,7 @@
 package com.alipeach.core.hibernate;
 
 import com.alipeach.core.GenericDao;
+import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -52,14 +53,14 @@ public class HibernateGenericDao<T, PK extends Serializable> implements GenericD
     @Override
     public void delete (List<T> list) {
         Session session = sessionFactory.getCurrentSession ();
-        for(T t : list) {
+        for (T t : list) {
             session.delete (t);
         }
     }
 
     @SuppressWarnings ("unchecked")
     @Override
-    public List<T> find (T t) {
+    public List<T> findAll (T t) {
         return sessionFactory.getCurrentSession ().createCriteria (persistentClass).add (Example.create (t)).list ();
     }
 
@@ -67,6 +68,13 @@ public class HibernateGenericDao<T, PK extends Serializable> implements GenericD
     @Override
     public List<T> loadAll () {
         return sessionFactory.getCurrentSession ().createCriteria (persistentClass).list ();
+    }
+
+    @SuppressWarnings ("unchecked")
+    @Override
+    public List<T> find (T t, int offset, int fetchSize) {
+        Criteria criteria = sessionFactory.getCurrentSession ().createCriteria (persistentClass).add (Example.create (t));
+        return criteria.setFirstResult (offset).setFetchSize (fetchSize).list ();
     }
 
 }

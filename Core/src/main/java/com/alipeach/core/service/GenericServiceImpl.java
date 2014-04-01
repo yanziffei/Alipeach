@@ -42,8 +42,13 @@ public class GenericServiceImpl<T, PK extends Serializable> implements GenericSe
     }
 
     @Override
-    public List<T> find (T t) {
-        return dao.find (t);
+    public List<T> find (T t, int offset, int fetchSize) {
+        return dao.find (t, offset, fetchSize);
+    }
+
+    @Override
+    public List<T> findAll (T t) {
+        return dao.findAll (t);
     }
 
     @Override
