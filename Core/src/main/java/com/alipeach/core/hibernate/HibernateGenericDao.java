@@ -1,6 +1,7 @@
 package com.alipeach.core.hibernate;
 
 import com.alipeach.core.GenericDao;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
@@ -62,9 +63,10 @@ public class HibernateGenericDao<T, PK extends Serializable> implements GenericD
         return sessionFactory.getCurrentSession ().createCriteria (persistentClass).add (Example.create (t)).list ();
     }
 
+    @SuppressWarnings ("unchecked")
     @Override
-    public Object executeSQL (String sql) {
-        throw new UnsupportedOperationException ();
-        //To change body of implemented methods use File | Settings | File Templates.
+    public List<T> loadAll () {
+        return sessionFactory.getCurrentSession ().createCriteria (persistentClass).list ();
     }
+
 }

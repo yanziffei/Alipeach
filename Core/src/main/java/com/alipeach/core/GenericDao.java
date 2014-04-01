@@ -20,5 +20,6 @@ public interface GenericDao<T, PK extends Serializable> {
 
     List<T> find (T t);
 
-    Object executeSQL(String sql);
+    List<T> loadAll();
+
 }
