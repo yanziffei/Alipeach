@@ -7,10 +7,10 @@ import java.util.UUID;
 /**
  * @author Chen Haoming
  */
-public abstract class BaseEntity implements UUIDBasedEntity, OptimisticLockEntity {
+public abstract class BaseEntity implements UUIDBasedEntity, OptimisticLockBasedEntity {
 
     public BaseEntity () {
-        setUUID (UUID.randomUUID ().toString ());
+        setUUID (UUID.randomUUID ().toString ().replaceAll ("-", ""));
     }
 
     @Override

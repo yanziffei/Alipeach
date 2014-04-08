@@ -9,7 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>Alieach-Core</artifactId>
+    <artifactId>Alipeach-Core</artifactId>
+    <packaging>jar</packaging>
 
 
     <dependencies>
