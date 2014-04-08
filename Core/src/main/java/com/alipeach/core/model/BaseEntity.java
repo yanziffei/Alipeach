@@ -7,15 +7,11 @@ import java.util.UUID;
 /**
  * @author Chen Haoming
  */
-public abstract class UUIDBasedEntity {
+public abstract class BaseEntity implements UUIDBasedEntity, OptimisticLockEntity {
 
-    public UUIDBasedEntity () {
+    public BaseEntity () {
         setUUID (UUID.randomUUID ().toString ());
     }
-
-    public abstract void setUUID (String uuid);
-
-    public abstract String getUUID ();
 
     @Override
     public int hashCode () {
@@ -25,7 +21,7 @@ public abstract class UUIDBasedEntity {
 
     @Override
     public boolean equals (Object obj) {
-        if (obj == null || ! (obj instanceof UUIDBasedEntity)) {
+        if (obj == null || ! (obj instanceof BaseEntity)) {
             return false;
         }
 
@@ -33,9 +29,9 @@ public abstract class UUIDBasedEntity {
             return true;
         }
 
-        UUIDBasedEntity entity = (UUIDBasedEntity) obj;
+        BaseEntity entity = (BaseEntity) obj;
         return StringUtils.equals (entity.getUUID (), this.getUUID ()) && doEquals(entity);
     }
 
-    protected abstract boolean doEquals (UUIDBasedEntity entity);
+    protected abstract boolean doEquals (BaseEntity entity);
 }
