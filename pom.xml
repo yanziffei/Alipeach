@@ -12,6 +12,7 @@
         <module>Core</module>
         <module>Web</module>
         <module>UserManager</module>
+        <module>Security</module>
     </modules>
 
 
