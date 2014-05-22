@@ -1,6 +1,7 @@
 package com.alipeach.core.service;
 
 import com.alipeach.core.GenericDao;
+import com.alipeach.core.model.BaseEntity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -8,17 +9,37 @@ import java.util.List;
 /**
  * @author Chen Haoming
  */
-public class GenericServiceImpl<T, PK extends Serializable> implements GenericService<T, PK> {
+public class GenericServiceImpl<T extends BaseEntity, PK extends Serializable> implements GenericService<T, PK> {
 
     private GenericDao<T, PK> dao;
 
     public GenericServiceImpl (GenericDao<T, PK> dao) {
+        if (null == dao) {
+            throw new NullPointerException ("Dao should never be null!");
+        }
         this.dao = dao;
     }
 
+    /**
+     * Save method adds 1 to t's version if it's updating t.
+     * So client calling this method does not modify version itself.
+     *
+     * @param t
+     *
+     * @return
+     */
+    @SuppressWarnings ("unchecked")
     @Override
     public T save (T t) {
+        checkVersion (t);
         return dao.save (t);
+    }
+
+    private void checkVersion (T t) {
+        T foundT = dao.get ((PK) t.getUuid ());
+        if (null != foundT) {
+            t.setVersion (t.getVersion () + 1);
+        }
     }
 
     @Override
@@ -33,6 +54,9 @@ public class GenericServiceImpl<T, PK extends Serializable> implements GenericSe
 
     @Override
     public List<T> save (List<T> list) {
+        for (T t : list) {
+            checkVersion (t);
+        }
         return dao.save (list);
     }
 

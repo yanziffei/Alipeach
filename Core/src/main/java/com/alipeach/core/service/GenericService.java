@@ -1,12 +1,14 @@
 package com.alipeach.core.service;
 
+import com.alipeach.core.model.BaseEntity;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author Chen Haoming
  */
-public interface GenericService<T, PK extends Serializable> {
+public interface GenericService<T extends BaseEntity, PK extends Serializable> {
 
     T save (T t);
 

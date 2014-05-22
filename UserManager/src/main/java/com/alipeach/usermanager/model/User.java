@@ -5,6 +5,7 @@ import com.alipeach.core.model.BaseEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Version;
 
 /**
  * @author wjy
@@ -52,6 +53,7 @@ public class User extends BaseEntity {
     }
 
     @Column (name = "version", nullable = false)
+    @Version
     @Override
     public void setVersion (int version) {
         super.setVersion (version);
