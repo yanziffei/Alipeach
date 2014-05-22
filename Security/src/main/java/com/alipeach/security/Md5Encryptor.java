@@ -10,7 +10,10 @@ import java.security.NoSuchAlgorithmException;
 public class Md5Encryptor implements IrreversibleEncryptor {
 
     private MessageDigest messageDigest;
+
     private String charset = "utf-8";
+
+    private String salt = "";
 
     public Md5Encryptor () {
         try {
@@ -25,7 +28,7 @@ public class Md5Encryptor implements IrreversibleEncryptor {
 
         try {
             messageDigest.reset ();
-            messageDigest.update (plaintext.getBytes (charset));
+            messageDigest.update ((plaintext + salt).getBytes (charset));
             byte[] result = messageDigest.digest ();
 
             StringBuilder stringBuilder = new StringBuilder ();
@@ -41,6 +44,13 @@ public class Md5Encryptor implements IrreversibleEncryptor {
     }
 
     public void setCharset (String charset) {
+        if (null == charset) {
+            throw new NullPointerException ("Charset should never be null!");
+        }
         this.charset = charset;
+    }
+
+    public void setSalt (String salt) {
+        this.salt = salt;
     }
 }
