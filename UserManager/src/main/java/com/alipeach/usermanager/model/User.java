@@ -1,6 +1,7 @@
 package com.alipeach.usermanager.model;
 
 import com.alipeach.core.model.BaseEntity;
+import org.apache.commons.lang.StringUtils;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,8 +48,12 @@ public class User extends BaseEntity {
 
     @Override
     protected boolean doEquals (BaseEntity entity) {
-        throw new UnsupportedOperationException ();
-        //To change body of implemented methods use File | Settings | File Templates.
+        if (! (entity instanceof User)) {
+            return false;
+        }
+
+        User user = (User) entity;
+        return StringUtils.equals (this.getNickName (), user.getNickName ()) && StringUtils.equals (this.getPassword (), user.getPassword ()) && this.status == user.status;
     }
 
     @Column (name = "version", nullable = false)
