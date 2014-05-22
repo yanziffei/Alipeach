@@ -20,7 +20,7 @@ public class User extends BaseEntity {
     @Column (name = "password", length = 32, nullable = false)
     private String password;
 
-    private Status status;
+    private Status status = Status.NORMAL;
 
     public String getNickName () {
         return nickName;
