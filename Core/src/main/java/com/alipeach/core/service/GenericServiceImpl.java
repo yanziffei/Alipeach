@@ -28,13 +28,13 @@ public class GenericServiceImpl<T extends BaseEntity, PK extends Serializable> i
      *
      * @return
      */
-    @SuppressWarnings ("unchecked")
     @Override
     public T save (T t) {
         checkVersion (t);
         return dao.save (t);
     }
 
+    @SuppressWarnings ("unchecked")
     private void checkVersion (T t) {
         T foundT = dao.get ((PK) t.getUuid ());
         if (null != foundT) {
