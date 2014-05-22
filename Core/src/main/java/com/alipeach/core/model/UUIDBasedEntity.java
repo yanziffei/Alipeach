@@ -5,7 +5,7 @@ package com.alipeach.core.model;
  */
 public interface UUIDBasedEntity {
 
-    void setUUID (String uuid);
+    void setUuid (String uuid);
 
-    String getUUID ();
+    String getUuid ();
 }

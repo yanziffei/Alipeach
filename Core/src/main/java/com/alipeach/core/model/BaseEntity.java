@@ -2,20 +2,21 @@ package com.alipeach.core.model;
 
 import org.apache.commons.lang.StringUtils;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 /**
  * @author Chen Haoming
  */
-public abstract class BaseEntity implements UUIDBasedEntity, OptimisticLockBasedEntity {
+public abstract class BaseEntity implements UUIDBasedEntity, OptimisticLockBasedEntity, Serializable {
 
-    public BaseEntity () {
-        setUUID (UUID.randomUUID ().toString ().replaceAll ("-", ""));
-    }
+    private String uuid = UUID.randomUUID ().toString ();
+
+    private int version = 0;
 
     @Override
     public int hashCode () {
-        String uuid = getUUID ();
+        String uuid = getUuid ();
         return (null == uuid) ? 0 : uuid.hashCode ();
     }
 
@@ -25,13 +26,33 @@ public abstract class BaseEntity implements UUIDBasedEntity, OptimisticLockBased
             return false;
         }
 
-        if(this == obj) {
+        if (this == obj) {
             return true;
         }
 
         BaseEntity entity = (BaseEntity) obj;
-        return StringUtils.equals (entity.getUUID (), this.getUUID ()) && doEquals(entity);
+        return StringUtils.equals (entity.getUuid (), this.getUuid ()) && this.getVersion () == entity.getVersion () && doEquals (entity);
     }
 
     protected abstract boolean doEquals (BaseEntity entity);
+
+    @Override
+    public String getUuid () {
+        return uuid;
+    }
+
+    @Override
+    public void setUuid (String uuid) {
+        this.uuid = uuid;
+    }
+
+    @Override
+    public int getVersion () {
+        return version;
+    }
+
+    @Override
+    public void setVersion (int version) {
+        this.version = version;
+    }
 }
