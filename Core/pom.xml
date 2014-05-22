@@ -37,8 +37,7 @@
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>20030203.000129</version>
-            <scope>compile</scope>
+            <version>2.6</version>
         </dependency>
     </dependencies>
 </project>
